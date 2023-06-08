@@ -27,15 +27,12 @@ steps:
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
-
-
-- task: CopyFiles@2
+- task: AzureRmWebAppDeployment@4
   inputs:
-    SourceFolder: '$(BuildSourcesDirectory)'
-    Contents: '**/target/*.war'
-    TargetFolder: '$(BuildArtifactStagingDirectory)'
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Pay-As-You-Go (9d410db7-7962-4103-9945-4bdda1c06530)'
+    appType: 'webApp'
+    WebAppName: 'piowww'
+    packageForLinux: '$(System.DefaultWorkingDirectory)'
+
 - task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
